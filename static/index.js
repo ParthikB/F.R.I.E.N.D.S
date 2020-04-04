@@ -16,12 +16,6 @@ $("#chooseFile").change(function() {
   readURL(this);
 });
 
-$("#chooseFile").change(function() {
-  readURL(this);
-});
-
-
-
 
 // To show the name of the image//
 
@@ -33,8 +27,9 @@ $('#chooseFile').bind('change', function () {
   }
   else {
     $(".file-upload").addClass('active');
-    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+    $("#noFile").text(filename); 
   }
+  console.log(filename)
 });
 
 
