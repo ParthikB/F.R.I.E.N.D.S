@@ -1,5 +1,5 @@
-const realFileBtn = document.getElementById("real-file");
-const customBtn = document.getElementById("custom-button");
+const realFileBtn = document.getElementById("file");
+const customBtn = document.getElementById("choose-button");
 const customTxt = document.getElementById("custom-text");
 
 customBtn.addEventListener("click", function() {

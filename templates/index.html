@@ -7,17 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- <link rel="stylesheet" href="static/home.css"> -->
     <link rel= "stylesheet" type= "text/css" href= '{{ url_for("static", filename="home.css") }}'>
 </head>
 <body>
     <h1>F.R.I.E.N.D.S</h1>
     <center>
-        <input type="file" id="real-file" hidden="hidden" />
-        <button type="button" id="custom-button">CHOOSE A FILE</button>
+        <input type="file" id="file" hidden="hidden" />
+        <button type="button" id="choose-button">CHOOSE A FILE</button>
         <span id="custom-text"><br><br>No file chosen, yet.</span>
         <br><br>
-        <button type="submit" id="custom-button1">Upload</button>
+        <button type="submit" id="submit-button">Upload</button>
     </center>
     <!-- <script src="index.js"></script> -->
     <script src="{{url_for('static', filename='index.js')}}"></script>

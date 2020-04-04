@@ -15,7 +15,7 @@ body {
     display: none;
 } */
 /* 
-#real-file {
+#file {
     position: absolute;
     margin: auto;
     top: 0;
@@ -30,7 +30,7 @@ body {
 } */
 
 
-#custom-button {
+#choose-button {
     font-size: 30px;
     position: relative;
     margin: auto ;
@@ -50,7 +50,7 @@ body {
     font-family: "Montserrat", sans-serif;
   }
   
-  #custom-button:hover {
+  #choose-button:hover {
     background-color: #00b28f;
   }
   
@@ -61,7 +61,7 @@ body {
   }
   
   
-#custom-button1 {
+#submit-button {
   font-size: 15px;
   position: relative;
   margin: auto ;
@@ -82,6 +82,6 @@ body {
   
 }
 
-#custom-button1:hover {
+#submit-button:hover {
   background-color: #00b28f;
 }
