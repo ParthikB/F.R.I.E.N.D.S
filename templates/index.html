@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,28 +10,26 @@
       rel="stylesheet">
       <link rel= "stylesheet" type= "text/css" href= '{{ url_for("static", filename="styles.css") }}'>
 </head>
+
 <body>
     <h1>F.R.I.E.N.D.S</h1>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>    
     <center>
         <h3>Please upload the image in Landscape</h3>
 
-        <form class='forms' method="POST" action="/">
+        <form class="forms" runat="server" method="POST" action="/">
+          
           <div class="file-upload">
-              <div class="file-select">
-                  <div class="file-select-button" id="fileName">Choose File</div>
-                  <div class="file-select-name" id="noFile">No file chosen...
-                  </div> 
-                <input type="file" name="chooseFile" id="chooseFile">
-              </div>
-        <form runat="server" method="POST" action="/">
-        <div class="file-upload">
             <div class="file-select">
-              <div class="file-select-button" id="fileName">Choose File</div>
+              <div class="file-select-button" id="fileName">Choose File
+              </div>
               <div class="file-select-name" id="noFile">No file chosen...</div> 
-              <input type="file" name="chooseFile" id="chooseFile">
+              <input type="file" name="fname" id="fname">
             </div>
-            <img id="img" src="#" alt="" />
+          </div>
+          
+          <img id="img" src="#"/>
+
         </form>
 
      

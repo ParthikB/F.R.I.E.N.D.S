@@ -21,7 +21,7 @@ def predict():
 	print(time.time())
 	if request.method == 'POST':
 		print('Entering post', time.time())
-		fname = request.form['chooseFile']
+		fname = request.form['chooseFile.value']
 		print(fname)
 
 	return render_template('index.html')

@@ -12,15 +12,15 @@ function readURL(input) {
   }
 }
 
-$("#chooseFile").change(function() {
+$("#fname").change(function() {
   readURL(this);
 });
 
 
 // To show the name of the image//
 
-$('#chooseFile').bind('change', function () {
-  var filename = $("#chooseFile").val();
+$('#fname').bind('change', function () {
+  var filename = $("#fname").val();
   if (/^\s*$/.test(filename)) {
     $(".file-upload").removeClass('active');
     $("#noFile").text("No file chosen..."); 
