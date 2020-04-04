@@ -11,24 +11,27 @@ app = Flask(__name__)
 # labels = {1:"Iris-setosa", 2:"Iris-versicolor", 3:"Iris-virginica"}
 
 # Defining the Home page
-# @app.route('/')
-# def home():
-#     return render_template('index.html')
+@app.route('/')
+def home():
+    return render_template('index.html')
+
 
 # Defining the Prediction page
 @app.route('/', methods=['GET', 'POST'])
 def predict():
-	print(time.time())
-	if request.method == 'POST':
-		print('Entering post', time.time())
-		fname = request.form['chooseFile.value']
-		print(fname)
+	print(time.time(), request.method)
+	try:
+		if request.method == 'POST':
+			print('Entering post', time.time())
+			# print(request.form['test'])
+			fname = request.form['fname']
+			print(9999999999999999999999999999999999, fname)
+	except:
+		pass
 
-	return render_template('index.html')
-
-    # return render_template('index.html', prediction = model_prediction)
+	return render_template('index.html', FILENAME=fname)
 
 
 
 if __name__ == '__main__':
-    app.run(port='8888', debug=True)
+    app.run(port=3444, debug=True)

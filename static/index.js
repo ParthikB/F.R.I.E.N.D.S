@@ -20,7 +20,7 @@ $("#fname").change(function() {
 // To show the name of the image//
 
 $('#fname').bind('change', function () {
-  var filename = $("#fname").val();
+  filename = $("#fname").val();
   if (/^\s*$/.test(filename)) {
     $(".file-upload").removeClass('active');
     $("#noFile").text("No file chosen..."); 
