@@ -1,29 +1,37 @@
+from fastai.vision import *
+
 from flask import Flask, render_template, request, redirect
 import numpy as np
 import joblib
 import os, time
 from PIL import Image
 import numpy as np
+import requests
 
-app = Flask(__name__)
+app  = Flask(__name__)
 
 
-# Creating a user_file folder if not present in the working dir
-if 'user_files' not in os.listdir():
-	os.mkdir('user_files')
-# user_file : It'll contain the images uploaded by the user temporarily
+
+def download_model():
+	url = 'https://drive.google.com/uc?export=download&id=1--EXz8nu4ecEkXkdmt7Nh2kEe2b4jf9W'
+	r = requests.get(url, allow_redirects=True)
+	open('dogs.pkl', 'wb').write(r.content)
+
+
 
 print(os.getcwd(), os.listdir())
 app.config["IMAGE_UPLOADS"] = os.getcwd()+'/user_files'
 
 
-# Loading the model
-# model_file = open('model.pkl', 'rb')
-# model = joblib.load(model_file)
-# labels = {1:"Iris-setosa", 2:"Iris-versicolor", 3:"Iris-virginica"}
+def predict_the_character(fpath):
+	chars = ['chandler', 'joey', 'monica', 'phoebe', 'rachel', 'ross']
 
-def predict_the_character(image):
-	return f'popu {time.time()}'
+	img = open_image(fpath)
+	pred_class, pred_idx, outputs = model.predict(img)
+	prob_distribution = {char : float('{0:.2f}'.format(prob)) for char, prob in zip(chars, ((outputs/sum(outputs))*100).tolist())}
+
+	return pred_class, prob_distribution
+
 
 # Defining the Home page
 @app.route('/')
@@ -32,8 +40,8 @@ def home():
 
 
 # Defining the Prediction page
-@app.route('/', methods=['GET', 'POST'])
-def predict():
+@app.route('/predict', methods=['GET', 'POST'])
+def predict(character='', prob_distribution=''):
 	print(time.time(), request.method)
 	# try:
 	if request.method == 'POST':
@@ -43,32 +51,48 @@ def predict():
 			fname = request.files['fname']
 
 			# Saving the Image file in local env
-			path = os.path.join(app.config["IMAGE_UPLOADS"], fname.filename)
-			fname.save(path)
-			print(path)
+			fpath = os.path.join(app.config["IMAGE_UPLOADS"], fname.filename)
+			fname.save(fpath)
+			print(fpath)
 			print(fname.filename, 'saved successfully!')
 
-			# Reading the Image from the database
-			data = Image.open(path)
-			if data.mode == 'RGBA':
-				data = data.convert('RGB')
 
-			# Conrting the PIL Image into numpy array
-			img = np.array(data)
-			print(img.shape)
-
-			character = predict_the_character(img)
+			character, prob_distribution = predict_the_character(fpath)
+			print(prob_distribution)
 
 			# Deleting the file from the database
-			os.remove(path)
+			os.remove(fpath)
 
 		# return redirect(request.url)
 	# except:
 	# 	print('Some error!!!!!!!!!!!!!!')
 
-	return render_template('index.html', PREDICTED_CHARACTER=character)
+	return render_template('index.html', 
+							PREDICTED_CHARACTER=character,
+							PROBABILITY_DIST=prob_distribution)
 
 
 
 if __name__ == '__main__':
-    app.run(port=7117, debug=True)
+
+	path = os.getcwd()
+
+	# Checking if user_file folder is present in the server, if not, downloading.
+	if 'user_files' not in os.listdir():
+		os.mkdir('user_files')
+	# user_file : It'll contain the images uploaded by the user temporarily
+
+
+	# Checking if model file is present in the server, if not, downloading.
+	if 'export.pkl' not in os.listdir():
+		print('Donwloading the model...', '\n')
+		download_model()
+	else:
+		print('Model present..................................!')
+
+	# Loading the model file
+	model_file = open('export.pkl', 'rb')
+	model = load_learner(path)
+
+	# INITIALIZING THE SERVER
+	app.run(port=7321, debug=True)
