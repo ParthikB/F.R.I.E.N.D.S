@@ -43,6 +43,7 @@ def predict():
 			# Saving the Image file in local env
 			path = os.path.join(app.config["IMAGE_UPLOADS"], fname.filename)
 			fname.save(path)
+			print(path)
 			print(fname.filename, 'saved successfully!')
 
 			# Reading the Image from the database
