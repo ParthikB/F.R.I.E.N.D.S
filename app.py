@@ -7,12 +7,14 @@ import numpy as np
 
 app = Flask(__name__)
 
-app.config["IMAGE_UPLOADS"] = os.getcwd()
 
 # Creating a user_file folder if not present in the working dir
 if 'user_files' not in os.listdir():
 	os.mkdir('user_files')
 # user_file : It'll contain the images uploaded by the user temporarily
+
+print(os.getcwd(), os.listdir())
+app.config["IMAGE_UPLOADS"] = os.getcwd()+'/user_files'
 
 
 # Loading the model
