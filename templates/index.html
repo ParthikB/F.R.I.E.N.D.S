@@ -1,13 +1,7 @@
-<!-- I've added one header tag, so that I can test the exchange of data between html and python script. I've done it successfully. As you can see, the name of the image file is being sent to my python script, from where I'm returning the value of the variable FILENAME, and it is then being rendered in html {{FILENAME}} header tag. 
-
-I was right, the problem lied with the type attribute of the input tag (file/submit).
-
-The data will transfer only when there is a submit action from the page.
-Thus, I created a submit button and we've to use it. No other option.
-As it is just vanilla right now, koshish kr that you add css to it according to the theme.
-
-Delete this message after reading.
--->
+<!-- Changed the theme color and styled the predict button
+      I am exlploring CSS web designing and styling to make an attractive page 
+    
+    delete after reading-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +11,23 @@ Delete this message after reading.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat" rel="stylesheet">
+
+    <style>
+      @font-face {
+          font-family: friends;
+          src: url("font/friends.ttf");
+}
+
+    </style>
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
       <link rel= "stylesheet" type= "text/css" href= '{{ url_for("static", filename="styles.css") }}'>
+      
 </head>
 
 <body>
-    <h1>F.R.I.E.N.D.S</h1>
+    <h1> <em> F<span style="color: red;">.</span>R<span style="color:skyblue;">.</span>I<span style="color:yellow;">.</span>E<span style="color: red;">.</span>N<span style="color:skyblue;">.</span>D<span style="color: yellow;">.</span>S </em></h1>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>    
     <center>
 
@@ -48,8 +52,9 @@ Delete this message after reading.
           
           <!-- <label for="SepalLength" class="formGroup">TEST HOLDER:</label> -->
           <!-- <input name="test" type="text" placeholder="Enter the Value"> -->
-          <img id="img" src="#"/>
-          <input type="submit" name="submit" id="submit" value="Submit">
+          <img id="img" src="#" alt="" />
+          <br><br>
+          <input type="submit" name="submit" id="submit" value="Predict">
 
         </form>
 
