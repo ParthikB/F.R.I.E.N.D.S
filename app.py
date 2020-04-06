@@ -18,7 +18,7 @@ path = os.getcwd()
 def download_model():
 	url = 'https://drive.google.com/uc?export=download&id=1--EXz8nu4ecEkXkdmt7Nh2kEe2b4jf9W'
 	r = requests.get(url, allow_redirects=True)
-	open('dogs.pkl', 'wb').write(r.content)
+	open('export.pkl', 'wb').write(r.content)
 
 
 # Checking if user_file folder is present in the server, if not, downloading.
