@@ -12,12 +12,31 @@ defaults.device = torch.device('cpu')
 
 app  = Flask(__name__)
 
+path = os.getcwd()
 
 
 def download_model():
 	url = 'https://drive.google.com/uc?export=download&id=1--EXz8nu4ecEkXkdmt7Nh2kEe2b4jf9W'
 	r = requests.get(url, allow_redirects=True)
 	open('dogs.pkl', 'wb').write(r.content)
+
+
+# Checking if user_file folder is present in the server, if not, downloading.
+if 'user_files' not in os.listdir():
+	os.mkdir('user_files')
+# user_file : It'll contain the images uploaded by the user temporarily
+
+
+# Checking if model file is present in the server, if not, downloading.
+if 'export.pkl' not in os.listdir():
+	print('Donwloading the model...', '\n')
+	download_model()
+else:
+	print('Model present..................................!')
+
+# Loading the model file
+model_file = open('export.pkl', 'rb')
+model = load_learner(path)
 
 
 
@@ -77,24 +96,6 @@ def predict(character='', prob_distribution=''):
 
 if __name__ == '__main__':
 
-	path = os.getcwd()
-
-	# Checking if user_file folder is present in the server, if not, downloading.
-	if 'user_files' not in os.listdir():
-		os.mkdir('user_files')
-	# user_file : It'll contain the images uploaded by the user temporarily
-
-
-	# Checking if model file is present in the server, if not, downloading.
-	if 'export.pkl' not in os.listdir():
-		print('Donwloading the model...', '\n')
-		download_model()
-	else:
-		print('Model present..................................!')
-
-	# Loading the model file
-	model_file = open('export.pkl', 'rb')
-	model = load_learner(path)
 
 	# INITIALIZING THE SERVER
 	app.run(port=7321, debug=True)
