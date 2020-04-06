@@ -8,6 +8,8 @@ from PIL import Image
 import numpy as np
 import requests
 
+defaults.device = torch.device('cpu')
+
 app  = Flask(__name__)
 
 
