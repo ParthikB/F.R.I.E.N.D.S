@@ -6,7 +6,8 @@ import joblib
 import os, time
 from PIL import Image
 import numpy as np
-import requests
+import requests, json
+
 
 defaults.device = torch.device('cpu')
 
@@ -80,6 +81,16 @@ def predict(character='', prob_distribution=''):
 
 			character, prob_distribution = predict_the_character(fpath)
 			print(prob_distribution)
+
+
+			info = {'class':str(character), 'prob_distribution':list(prob_distribution.values())}
+
+			print(1000000000000000000000000000000000000000, type(info))
+			json_file = json.dumps(info, indent=4)
+
+			json_path = os.path.join(app.config["IMAGE_UPLOADS"], 'info.json')
+			with open(json_path, 'w') as f:
+				f.write(json_file)
 
 			# Deleting the file from the database
 			os.remove(fpath)
