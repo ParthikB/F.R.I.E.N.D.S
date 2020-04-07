@@ -33,15 +33,15 @@ if 'export.pkl' not in os.listdir():
 	print('Donwloading the model...', '\n')
 	download_model()
 else:
-	print('Model present..................................!')
+	print('Model found. Loading...')
 
 # Loading the model file
 model_file = open('export.pkl', 'rb')
 model = load_learner(path)
+print('Model Loaded.')
 
 
-
-print(os.getcwd(), os.listdir())
+# print(os.getcwd(), os.listdir())
 app.config["IMAGE_UPLOADS"] = os.getcwd()+'/user_files'
 
 
@@ -64,36 +64,37 @@ def home():
 # Defining the Prediction page
 @app.route('/predict', methods=['GET', 'POST'])
 def predict(character='', prob_distribution=''):
-	print(time.time(), request.method)
+	# print(time.time(), request.method)
 	# try:
 	if request.method == 'POST':
-		print('Entering post', time.time())
+		# print('Entering post', time.time())
 		if request.form:
 			# Reading the POST request
-			fname = request.files['fname']
+			img = request.files['fname']
 
 			# Saving the Image file in local env
-			fpath = os.path.join(app.config["IMAGE_UPLOADS"], fname.filename)
-			fname.save(fpath)
-			print(fpath)
-			print(fname.filename, 'saved successfully!')
+			img_path = os.path.join(app.config["IMAGE_UPLOADS"], img.filename)
+			img.save(img_path)
+			print(img_path)
+			print(img.filename, 'saved successfully!')
 
 
-			character, prob_distribution = predict_the_character(fpath)
+			# Prediction Time
+			print('Predicting...')
+			character, prob_distribution = predict_the_character(img_path)
 			print(prob_distribution)
 
 
+			# Creating a JSON file with all the information
 			info = {'class':str(character), 'prob_distribution':list(prob_distribution.values())}
-
-			print(1000000000000000000000000000000000000000, type(info))
 			json_file = json.dumps(info, indent=4)
-
 			json_path = os.path.join(app.config["IMAGE_UPLOADS"], 'info.json')
 			with open(json_path, 'w') as f:
 				f.write(json_file)
+			print('JSON Exported successfully.')
 
 			# Deleting the file from the database
-			os.remove(fpath)
+			os.remove(img_path)
 
 		# return redirect(request.url)
 	# except:
@@ -109,4 +110,4 @@ if __name__ == '__main__':
 
 
 	# INITIALIZING THE SERVER
-	app.run(port=7321, debug=True)
+	app.run(port=1111, debug=True)
