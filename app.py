@@ -41,8 +41,8 @@ model = load_learner(path)
 print('Model Loaded.')
 
 
-# print(os.getcwd(), os.listdir())
 app.config["IMAGE_UPLOADS"] = os.getcwd()+'/user_files'
+app.config["JSON_UPLOADS"]  = os.getcwd()+'/static'
 
 
 def predict_the_character(fpath):
@@ -64,11 +64,12 @@ def home():
 # Defining the Prediction page
 @app.route('/predict', methods=['GET', 'POST'])
 def predict(character='', prob_distribution=''):
-	# print(time.time(), request.method)
+
 	# try:
 	if request.method == 'POST':
-		# print('Entering post', time.time())
+
 		if request.form:
+
 			# Reading the POST request
 			img = request.files['fname']
 
@@ -88,7 +89,7 @@ def predict(character='', prob_distribution=''):
 			# Creating a JSON file with all the information
 			info = {'class':str(character), 'prob_distribution':list(prob_distribution.values())}
 			json_file = json.dumps(info, indent=4)
-			json_path = os.path.join(app.config["IMAGE_UPLOADS"], 'info.json')
+			json_path = os.path.join(app.config["JSON_UPLOADS"], 'info.json')
 			with open(json_path, 'w') as f:
 				f.write(json_file)
 			print('JSON Exported successfully.')
@@ -96,7 +97,6 @@ def predict(character='', prob_distribution=''):
 			# Deleting the file from the database
 			os.remove(img_path)
 
-		# return redirect(request.url)
 	# except:
 	# 	print('Some error!!!!!!!!!!!!!!')
 
