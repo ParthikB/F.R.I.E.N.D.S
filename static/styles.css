@@ -1,5 +1,5 @@
 h1 {
-    color: white;
+    color: black;
     text-align: center;
     font-size: 150px;
     font-family: "Montserrat", sans-serif;
@@ -8,13 +8,13 @@ h1 {
 }
 
 h2 {
-  color: white;
+  color: black;
   text-align: center;
   font-family: "Montserrat", sans-serif;
 }
 
 h3{
-  color: white;
+  color: black;
   text-align: center;
   font-size: 10px;
   font-family: "Montserrat", sans-serif;
@@ -23,7 +23,7 @@ h3{
 body {
     padding: 0;
     margin: 0;
-    background-color: black; 
+    background-color: white; 
 }
 
 input[type=submit] {

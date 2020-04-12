@@ -29,42 +29,42 @@ $('#fname').bind('change', function () {
     $(".file-upload").addClass('active');
     $("#noFile").text(filename); 
   }
-  console.log(filename)
+  console.log(filename);
 });
 
 
+/// function for ploting graph
+function renderChart(data, labels) {
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'This week',
+              data: data,
+          }]
+      },
+  });
+  }
 
-
-//// A function that would return the contents of the JSON file located
-//// in the same dir as this script
-
-// function find_file(){
-//   const { readdirSync } = require('fs');
-//   const PATH_TO_YOUR_FOLDER = '.';
+  function getChartData() {
+  $("#loadingMessage").html('<img src="./giphy.gif" alt="" srcset="">');
+  $.ajax({
+      url: "https://ghibliapi.herokuapp.com/films",
+      success: function (result) {
+          var data = result.map(x=>x.rt_score);
+          var labels = result.map(x=>x.title);
+          renderChart(data, labels);
+          console.log(data);
+      },
+  });
+}
   
-//   var file_found = false
-//   while (file_found==false) {  
-
-//     dir_files = readdirSync(PATH_TO_YOUR_FOLDER)
-
-//     for (var i=0; i<dir_files.length; i++) {
-//       fname = dir_files[i]
-//       if (fname=='info.json') {
-//         var file_found = true
-//         console.log('File Found')
-//         return require('./info');
-//       }
-//     console.log('File not found. Recursing...')
-//       }
-//   }
-// }
+  $("#renderBtn").click(
+  function () {
+      getChartData();
+  });
 
 
-////// data is the contents of the JSON file, which can be splitted as follows
-//// var data = find_file()
-
-//// var class_name = data['class'] 
-//// var prob_dist  = data['prob']
-
-//// console.log(class_name)
-//// console.log(prob_dist)
+  
