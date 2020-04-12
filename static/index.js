@@ -33,7 +33,8 @@ $('#fname').bind('change', function () {
 });
 
 
-/// function for ploting graph
+// function for ploting graph
+
 function renderChart(data, labels) {
   var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
@@ -51,7 +52,7 @@ function renderChart(data, labels) {
   function getChartData() {
   $("#loadingMessage").html('<img src="./giphy.gif" alt="" srcset="">');
   $.ajax({
-      url: "https://ghibliapi.herokuapp.com/films",
+      url: "https://ghibliapi.herokuapp.com/films",   // <-- graph is reading this json file
       success: function (result) {
           var data = result.map(x=>x.rt_score);
           var labels = result.map(x=>x.title);
@@ -61,7 +62,8 @@ function renderChart(data, labels) {
   });
 }
   
-  $("#renderBtn").click(
+// function: when button is clicked, function getCharData() will trigger
+  $("#renderBtn").click(  
   function () {
       getChartData();
   });
